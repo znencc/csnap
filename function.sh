@@ -13,12 +13,12 @@ function ERR() {
   echo -e "${RED}[ERROR] $1${NC}"
 }
 
-function WARN() {
-  echo -e "${YELLOW}[WARNING] $1${NC}"
-}
-
 function INF() {
   echo -e "${GREEN}[INFO] $1${NC}"
+}
+
+function WARN() {
+  echo -e "${YELLOW}[WARNING] $1${NC}"
 }
 
 function READ() {
