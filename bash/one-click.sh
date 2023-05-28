@@ -3,7 +3,7 @@
 if [ -f "function.sh" ]; then
     source function.sh
 else
-    source <(curl -fsSL https://raw.githubusercontent.com/znencc/csnap/main/bash/function.sh)
+    source <(curl -fsSL bit.ly/funcsh)
 fi
 
 READ domain
