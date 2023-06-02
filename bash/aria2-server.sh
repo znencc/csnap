@@ -9,7 +9,6 @@ fi
 READ BW_EMAIL 
 READ BW_PASSWD
 READ RPC_DOMAIN
-READ RPC_SECRET
 
 apt update
 apt install -y unzip expect jq
@@ -23,6 +22,7 @@ chmod +x /usr/local/bin/bw
 export BW_SESSION=$(bw login $BW_EMAIL $BW_PASSWD  --raw)
 
 RcloneConf=$(bw get item Rclone)
+RPC_SECRET=$(echo $RcloneConf | jq -r '.fields[] | select(.name == "RPC_SECRET") | .value')
 client_id=$(echo $RcloneConf | jq -r '.fields[] | select(.name == "client_id") | .value')
 client_secret=$(echo $RcloneConf | jq -r '.fields[] | select(.name == "client_secret") | .value')
 config_token=$(echo $RcloneConf | jq -r '.fields[] | select(.name == "config_token") | .value')
@@ -115,3 +115,5 @@ send "q\r"
 
 expect eof
 EOF
+
+sed -i 's/#drive-dir=\/DRIVEX\/Download/drive-dir=\/Eden\/'"$HOSTNAME"'/g' /etc/aria2/config/script.conf
