@@ -9,6 +9,9 @@ fi
 READ domain
 READ flexget_passward
 
+INF "Installing Docker..."
+curl -fsSL https://get.docker.com | sh
+
 apt update
 apt install python3-pip python3-venv -y
 
@@ -41,7 +44,7 @@ templates:
         seen: local
         aria2:
             path: /flexget/
-            port: 
+            port: 443
             server: <server>
             secret: <secret>
     
@@ -117,10 +120,6 @@ lab.$domain {
 # }
 EOF
 ln /etc/caddy/Caddyfile /root/conf/Caddyfile.conf
-
-
-INF "Installing Docker..."
-curl -fsSL https://get.docker.com | sh
 
 INF "Run AList container..."
 docker run -d \
