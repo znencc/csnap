@@ -41,6 +41,7 @@ templates:
         seen: local
         aria2:
             path: /flexget/
+            port: 
             server: <server>
             secret: <secret>
     
@@ -108,9 +109,6 @@ dc.$domain {
 fg.$domain {
     reverse_proxy localhost:5050
 }
-ng.$domain {
-    reverse_proxy localhost:6880
-}
 lab.$domain {
     reverse_proxy localhost:8888
 }
@@ -120,10 +118,9 @@ lab.$domain {
 EOF
 ln /etc/caddy/Caddyfile /root/conf/Caddyfile.conf
 
-if ! command -v docker > /dev/null 2>&1; then
-    INF "Installing Docker..."
-    curl -fsSL https://get.docker.com | sh
-fi
+
+INF "Installing Docker..."
+curl -fsSL https://get.docker.com | sh
 
 INF "Run AList container..."
 docker run -d \
@@ -145,14 +142,6 @@ docker run -d \
 -v portainer_data:/data \
 -v /var/run/docker.sock:/var/run/docker.sock \
 portainer/portainer-ce:latest
-
-INF "Run AriaNG container..."
-docker run -d \
---name ariang \
---restart unless-stopped \
---log-opt max-size=1m \
--p 6880:6880 \
-p3terx/ariang
 
 INF "Run Caddy container..."
 docker run -d \
