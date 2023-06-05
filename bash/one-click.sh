@@ -38,20 +38,15 @@ web_server:
     port: 5050
     web_ui: yes
 
-templates:
-    anime:
+tasks:
+    U149:
+        rss: https://share.dmhy.org/topics/rss/rss.xml?keyword=U149+1080+%E7%AE%80+Production&sort_id=0&team_id=669&order=date-desc
         accept_all: yes
         seen: local
         aria2:
             path: /flexget/
-            port: 443
             server: <server>
             secret: <secret>
-    
-tasks:
-    U149:
-        rss: https://share.dmhy.org/topics/rss/rss.xml?keyword=U149+1080+%E7%AE%80+Production&sort_id=0&team_id=669&order=date-desc
-        template: anime
 
 #schedules:
 #  - tasks: '*'
@@ -120,6 +115,19 @@ lab.$domain {
 # }
 EOF
 ln /etc/caddy/Caddyfile /root/conf/Caddyfile.conf
+
+docker run -d \
+--name=flexget \
+-e PUID=1000 \
+-e PGID=1000 \
+-e FG_WEBUI_PASSWD=$flexget_passward \
+-e FG_LOG_LEVEL=info \
+-e TZ=Asia/Shanghai \
+-p 5050:5050 \
+-v /etc/flexget/config:/config \
+-v /etc/flexget/data:/data \
+wiserain/flexget
+    
 
 INF "Run AList container..."
 docker run -d \
