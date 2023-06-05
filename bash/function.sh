@@ -1,28 +1,30 @@
 #!/bin/bash
 
 # Define color codes
-RED='\e[1;31m'
-GREEN='\e[1;32m'
-YELLOW='\e[1;33m'
-BLUE='\e[1;34m'
-PINK='\e[1;35m'
-SHAN='\e[1;33;5m'
-NC='\e[0m' # No Color
+RESET="\033[0m"
+BOLD="\033[1m"
+RED="\033[31m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
+BLUE="\033[34m"
+MAGENTA="\033[35m"
+CYAN="\033[36m"
+WHITE="\033[37m"
 
 function ERR() {
-  echo -e "${RED}[ERROR] $1${NC}"
+  echo -e "${RED}${BOLD}[ERROR] $1${RESET}"
 }
 
 function INF() {
-  echo -e "${GREEN}[INFO] $1${NC}"
+  echo -e "${GREEN}${BOLD}[INFO] $1${RESET}"
 }
 
 function WARN() {
-  echo -e "${YELLOW}[WARNING] $1${NC}"
+  echo -e "${YELLOW}${BOLD}[WARNING] $1${RESET}"
 }
 
 function READ() {
   # Read user input and trim leading/trailing whitespace
-  read -p "$(echo -e "${BLUE}Enter $1:${NC} ")" $1
+  read -p "$(echo -e "${CYAN}${BOLD}Enter $1:${RESET} ")" $1
   eval $1=\${$1// /}
 }
