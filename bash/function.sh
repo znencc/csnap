@@ -28,3 +28,16 @@ function READ() {
   read -p "$(echo -e "${CYAN}${BOLD}Enter $1:${RESET} ")" $1
   eval $1=\${$1// /}
 }
+
+function DOCKER_RUN_ALIST() {
+  INF "Run AList container..."
+  docker run -d \
+  -p 5244:5244 \
+  --name alist \
+  --restart=always \
+  -v /etc/alist:/opt/alist/data \
+  -e PUID=0 -e PGID=0 -e UMASK=022 \
+  xhofe/alist:latest
+  mkdir -p /etc/alist/eden/
+  ln -s /etc/alist/eden/ /root/eden
+}
