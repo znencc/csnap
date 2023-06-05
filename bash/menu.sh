@@ -32,8 +32,7 @@ while true; do
 
   case $choice in
     1)
-      # 执行选项1操作
-      INF "执行选项1操作..."
+      DOCKER_RUN_ALIST()
       read -n 1 -s -r -p "按任意键继续..."
       ;;
     2)
