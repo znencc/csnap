@@ -66,8 +66,6 @@ docker run -d \
 -v /etc/caddy/Caddyfile:/etc/caddy/Caddyfile \
 caddy
 
-sleep 5
-
 expect <<EOF
 set timeout 10
 
